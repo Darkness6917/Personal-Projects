@@ -1,0 +1,48 @@
+#Magic 8-Ball Program
+#Chase Cole
+#11/21/2021
+#This Program will generate a random number and indicate a positive, negative and neutral response
+
+#Imports rand and math functions to use for random generation
+import random
+import math
+#intial value for ask before the while function to avoid infinite loop.
+y = "y"
+ask = y
+#Loops to ask addition questions to avoid having to open program multiple times
+#Sets true or false statement for ask = y 
+while ask == y:
+    name = input("What is your name?")
+    question = input("What is your question?")
+#Structures response, lower cases all but name. 
+    reveal = ((" your answer to " + question + " is"))
+    print(name + reveal.lower())
+#stops code before reveal
+    input("\n\nPress enter now to reveal the answer")
+#random number generation
+    lucky_number = math.floor(random.random() * 8)
+#If statements declaring what response will be given. 
+    if lucky_number == 0:
+        print("It is certain")
+    elif lucky_number == 1:
+        print("The reply is hazy, try again.")
+    elif lucky_number == 2:
+        print("Very doubtful.")
+    elif lucky_number == 3:
+        print("I cannot predict now.")
+    elif lucky_number == 4:
+        print("My reply is no.")
+    elif lucky_number == 5:
+        print("Yes.")
+    elif lucky_number == 6:
+        print("Don't count on it.")
+    elif lucky_number == 7:
+        print("Better not tell you now.")
+    elif lucky_number == 8:
+        print("You may rely on it.")
+    ask = input("Ask another question? y for yes, n for no ")
+    print (ask)
+#Loop ends here once response is not equal to "y". 
+    if ask != y:
+        print("Have a nice day")
+        break
