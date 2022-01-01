@@ -1,0 +1,42 @@
+import mysql.connector as sql
+def login() :
+    db = sql.connect(host = "localhost", user = "root", passwd = "Hostile1!")
+    cur = db.cursor()
+    try :
+        cur.execute("create database login")
+        db = sql.connect(host = "localhost", user = "root", passwd = "Hostile1!", database = "login")
+        cur = db.cursor()
+    except sql.errors.DatabaseError :
+        db = sql.connect(host = "localhost", user = "root", passwd = "Hostile1!", database = "login")
+        cur = db.cursor()
+        try :
+            cur.execute("create table main(username varchar(50), NOT NULL, password varchar(50), NOT NULL, vendorid int NOT NULL)")
+        except sql.errors.ProgrammingError :
+            pass
+    finally :
+        try :
+            cur.execute("create table main(username varchar(50) NOT NULL, password varchar(50) NOT NULL, vendorid int NOT NULL)")
+        except sql.errors.ProgrammingError :
+            pass
+    while True :
+        accountcheck = 0
+        user = input("Enter Username : ")
+        passwd = input("Enter Password : ")
+        vendorID = int(input("Enter Your Vendor ID : "))
+        cur.execute("select * from main where username = '%s' and password = '%s' and vendorID = %s" %(user, passwd, vendorID))
+        rud = cur.fetchall()
+        if rud :
+            print("Welcome")
+            accountcheck = 1
+            if accountcheck == 1 :
+                break
+        else :
+            cur.execute("insert into main values('{}', '{}', {})".format(user, passwd, vendorID))
+            db.commit()
+            print("Account Created")
+            accountcheck = 1
+            if accountcheck == 1 :
+                break
+    cur.close()
+    db.close()
+login()
