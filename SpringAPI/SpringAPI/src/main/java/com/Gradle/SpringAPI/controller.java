@@ -1,4 +1,4 @@
-package com.Gradle;
+package com.Gradle.SpringAPI;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
